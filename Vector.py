@@ -12,16 +12,21 @@ class Vector(list):
         else:
             self.order = len(args) - 1
             super(Vector, self).__init__(args)
-        self.x = self[0]
-        self.y = self[1]
-        self.z = 0 if len(self) < 3 else self[2]
-        self.a, self.b, self.c = self.x, self.y, self.z
+        if len(self) > 0:
+            self.x = self[0]
+            self.a = self.x
+        if len(self) > 1:
+            self.y = self[1]
+            self.b = self.y
+        if len(self) > 2:
+            self.z = self[2]
+            self.c = self.z
 
     def slope(self, point):
         return (self.y - point.y) / (self.x - point.x)
 
     def midpoint(self, point):
-		return (self + point) * .5
+        return (self + point) * .5
 
     def distance(self, p2):
         total = 0
