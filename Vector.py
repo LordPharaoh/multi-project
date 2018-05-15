@@ -21,7 +21,7 @@ class Vector(list):
         return (self.y - point.y) / (self.x - point.x)
 
     def midpoint(self, point):
-        return Vector((self.x + point.x) * .5, (self.y + point.y) * .5, (self.z + point.z) * .5)
+		return (self + point) * .5
 
     def distance(self, p2):
         total = 0
@@ -81,7 +81,6 @@ class Vector(list):
 
     def __repr__(self):
         return self.__str__()
-
 
 # easier to think about
 Point = Vector
