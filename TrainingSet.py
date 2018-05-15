@@ -1,3 +1,5 @@
+from Vector import Vector
+
 class TrainingSet(list):
 
     def __init__(self, *args):
@@ -12,5 +14,13 @@ class TrainingSet(list):
         for te in self:
             tesum += hypothesis.r_squared(te)
         return tesum/len(self)
+
+    def mean_gradient(self, hypothesis):
+        gradsum = Vector([0] * len(hypothesis.params))
+        for te in self:
+            gradsum += hypothesis.gradient(te)
+        return gradsum/len(self)
+    
+        
         
  

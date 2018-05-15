@@ -21,3 +21,8 @@ class Hypothesis:
 
 	def r_squared(self, training_example):
 		return self.residual(training_example) ** 2
+
+	def gradient(self, training_example):
+                return self.residual(training_example) * training_example.x
+
+
