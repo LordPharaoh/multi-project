@@ -18,7 +18,7 @@ class TrainingSet(list):
     def mean_gradient(self, hypothesis):
         gradsum = Vector([0] * len(hypothesis.params))
         for te in self:
-            gradsum += hypothesis.gradient(te)
+            gradsum = gradsum + hypothesis.gradient(te)
         return gradsum/len(self)
     
         

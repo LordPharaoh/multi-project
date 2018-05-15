@@ -10,10 +10,6 @@ class Hypothesis:
 			self.params = Vector([0] * x)
 	
 	def __call__(self, x):
-		if len(x) + 1 == len(self.params):
-			# If x is too short, it probably means the constant is not included, so add constant to end
-			return self.params * Vector((x + [1]))
-		else:
 			return self.params * x
 	
 	def residual(self, training_example):
@@ -23,9 +19,9 @@ class Hypothesis:
 		return self.residual(training_example) ** 2
 
 	def gradient(self, training_example):
-                return self.residual(training_example) * training_example.x
+                return training_example.x * self.residual(training_example)
 	
 	def update(self, mean_gradient, step_size):
-		self.params -= (mean_gradient * step_size)
+		self.params = self.params + (mean_gradient * step_size)
 
 
