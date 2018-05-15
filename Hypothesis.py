@@ -7,7 +7,7 @@ class Hypothesis:
 		if isinstance(x, Vector):
 			self.params = x
 		else:
-			self.params = Vector([0] * x)
+			self.params = Vector.zero(x)
 	
 	def __call__(self, x):
 			return self.params * x
