@@ -49,6 +49,10 @@ class Vector(list):
     def zero(n):
         return Vector([0] * n)
 
+    @staticmethod
+    def fill(value, n):
+        return Vector([value] * n)
+
     def __add__(self, other):
         if isinstance(other, Vector):
             return Vector(*[s + o for s, o in zip(self, other)])

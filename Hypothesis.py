@@ -23,5 +23,8 @@ class Hypothesis:
 	
 	def update(self, mean_gradient, step_size):
 		self.params = self.params + (mean_gradient * step_size)
+	
+	def error(self, training_example):
+		return self.r_squared(training_example)
 
 

@@ -1,3 +1,4 @@
+import matplotlib.pyplot as plt
 from Vector import Vector
 from random import uniform
 from TrainingExample import TrainingExample
@@ -29,7 +30,4 @@ class TrainingSet(list):
         for te in self:
             gradsum = gradsum + hypothesis.gradient(te)
         return gradsum/len(self)
-
-        
-        
  
