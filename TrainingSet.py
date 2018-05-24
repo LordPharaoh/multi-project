@@ -22,12 +22,12 @@ class TrainingSet(list):
     def error(self, hypothesis):
         tesum = 0
         for te in self:
-            tesum += hypothesis.r_squared(te)
+            tesum += hypothesis.error(te)
         return tesum/len(self)
 
     def mean_gradient(self, hypothesis):
         gradsum = Vector([0] * len(hypothesis.params))
         for te in self:
             gradsum = gradsum + hypothesis.gradient(te)
-        return gradsum/len(self)
+        return gradsum * len(self) ** -1
  

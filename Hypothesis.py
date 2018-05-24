@@ -1,30 +1,38 @@
+import numpy as np
 from Vector import Vector
 
 class Hypothesis:
-	params = Vector()
+    params = Vector()
 
-	def __init__(self, x):
-		if isinstance(x, Vector):
-			self.params = x
-		else:
-			self.params = Vector.zero(x)
-	
-	def __call__(self, x):
-			return self.params * x
-	
-	def residual(self, training_example):
-		return training_example.y - self(training_example.x)
+    LINEAR = 0
+    LOGISTIC = 1
 
-	def r_squared(self, training_example):
-		return self.residual(training_example) ** 2
-
-	def gradient(self, training_example):
-                return training_example.x * self.residual(training_example)
-	
-	def update(self, mean_gradient, step_size):
-		self.params = self.params + (mean_gradient * step_size)
-	
-	def error(self, training_example):
-		return self.r_squared(training_example)
+    def __init__(self, x, basis=LINEAR):
+        self.basis = basis
+        if isinstance(x, Vector):
+            self.params = x
+        else:
+            self.params = Vector.zero(x)
+    
+    def __call__(self, x):
+            if self.basis == self.LINEAR:
+                return self.params * x
+            if self.basis == self.LOGISTIC:
+                return (1 + np.exp(self.params * x * -1)) ** -1
+    
+    def gradient(self, training_example):
+            if self.basis == self.LINEAR:
+                return training_example.x * (training_example.y - self(training_example.x))
+            if self.basis == self.LOGISTIC:
+                return 
+    
+    def update(self, mean_gradient, step_size):
+        self.params = self.params + (mean_gradient * step_size)
+    
+    def error(self, training_example):
+        if self.basis == self.LINEAR:
+            return (training_example.y - self(training_example.x)) ** 2
+        if self.basis == self.LOGISTIC:
+            return np.log(self(training_example.x)) if training_example.y == 1 else np.log(1 - self(training_example.x))
 
 

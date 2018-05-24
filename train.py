@@ -25,8 +25,8 @@ for s0, s1 in zip(surface_0, surface_1):
 
 #make h start at the highest point so it's dramatic
 m_idx = np.argmax(err)
-h = Hypothesis(Vector(np.ndarray.flatten(surface_0)[m_idx], np.ndarray.flatten(surface_1)[m_idx]))
-print(h.params)
+m_idx = m_idx // len(surface_0), m_idx % len(surface_0)
+h = Hypothesis(Vector(surface_0[m_idx], surface_1[m_idx]))
 
 theta_0 = []
 theta_1 = []
@@ -34,12 +34,12 @@ errors = []
 
 for i in range(1000):
 
-	mg = ts.mean_gradient(h)
-	h.update(mg, 1)
-
 	theta_0.append(h.params[0])
 	theta_1.append(h.params[1])
 	errors.append(ts.error(h))
+
+	mg = ts.mean_gradient(h)
+	h.update(mg, 1)
 
 print("Actual values: {}".format(coeff))
 print("Learned values: {}".format(h.params))
@@ -47,7 +47,7 @@ print("Percent error: {}".format(100 * sum([abs(c/p) for c, p in zip(coeff - h.p
 
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-surf = ax.plot_surface(surface_0, surface_1, err, cmap=cm.coolwarm,
+surf = ax.plot_surface(surface_0, surface_1, np.array(err), cmap=cm.coolwarm,
                        linewidth=0, antialiased=False)
 
 ax.plot(theta_0, theta_1, errors)
