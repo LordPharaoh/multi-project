@@ -30,6 +30,6 @@ class Hypothesis:
         if self.basis == self.LINEAR:
             return (self(training_example.x) - training_example.y) ** 2
         if self.basis == self.LOGISTIC:
-            return np.log(self(training_example.x)) if training_example.y == 1 else np.log(1 - self(training_example.x))
+            return np.log(self(training_example.x)) if training_example.y < .5  else np.log(1 - self(training_example.x))
 
 
