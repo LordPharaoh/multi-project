@@ -45,6 +45,9 @@ class Vector(list):
     def complex(self):
         return self.x + self.y * 1j
 
+    def unit(self):
+        return self / abs(self)
+
     @staticmethod
     def zero(n):
         return Vector([0] * n)

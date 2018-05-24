@@ -21,17 +21,14 @@ class Hypothesis:
                 return (1 + np.exp(self.params * x * -1)) ** -1
     
     def gradient(self, training_example):
-            if self.basis == self.LINEAR:
-                return training_example.x * (training_example.y - self(training_example.x))
-            if self.basis == self.LOGISTIC:
-                return 
+            return training_example.x * (self(training_example.x) - training_example.y) 
     
     def update(self, mean_gradient, step_size):
-        self.params = self.params + (mean_gradient * step_size)
+        self.params = self.params - (mean_gradient * step_size)
     
     def error(self, training_example):
         if self.basis == self.LINEAR:
-            return (training_example.y - self(training_example.x)) ** 2
+            return (self(training_example.x) - training_example.y) ** 2
         if self.basis == self.LOGISTIC:
             return np.log(self(training_example.x)) if training_example.y == 1 else np.log(1 - self(training_example.x))
 
